@@ -2,7 +2,10 @@ import serial_arduino
 
 
 def main():
-    arduino = serial_arduino.arduino_serial("COM5")  # "/dev/ttyUSB0")
+    print("Working")
+    arduino = serial_arduino.arduino_serial()  # "/dev/ttyUSB0")
+    arduino.set_serial("/dev/ttyACM0")
+    arduino.list_ports()
     arduino.auto()
 
 
