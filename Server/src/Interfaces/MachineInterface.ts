@@ -15,6 +15,8 @@ export interface Location
 
 export interface Slot
 {
+    name:string,
+    info:string,
     x:number,
     y:number,
     cost:number,
