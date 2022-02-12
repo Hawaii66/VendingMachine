@@ -1,5 +1,5 @@
 import {Express} from "express"
-import { ChangeSlot, CreateMachine, GetAll, GetID, InsertSlot, SetMachine } from "../Database/MachinesDB";
+import { ChangeSlot, CreateMachine, FillSlot, GetAll, GetID, GetLocations, InsertSlot, RemoveSlot, SetMachine } from "../Database/MachinesDB";
 import { Machine, Slot } from "../Interfaces/MachineInterface"
 import { AuthToken } from "../Utils/Middelware";
 
@@ -51,6 +51,21 @@ export const MachineRoutes = (app:Express) => {
         res.status(200).json(machine);
     });
 
+    app.post("/machines/fill", AuthToken, async (req,res)=>{
+        const id = req.body.id;
+        const slotIndex = req.body.index;
+        const amount = req.body.amount;
+        const machine = await FillSlot(id, slotIndex, amount);
+        res.status(200).json(machine);
+    });
+
+    app.delete("/machines/delete", AuthToken, async (req,res)=>{
+        const id = req.body.id;
+        const slotIndex = req.body.index;
+        const machine = await RemoveSlot(id, slotIndex);
+        res.status(200).json(machine);
+    });
+
     app.get("/machines/get/:id", async (req,res)=>{
         const id = req.params.id;
         const machine = await GetID(id);
@@ -61,5 +76,11 @@ export const MachineRoutes = (app:Express) => {
     app.get("/machines", async (req,res)=>{
         const machines = await GetAll();
         res.status(200).json(machines);
+    });
+
+    app.get("/machines/locations", async (req,res)=>{
+        const locations = await GetLocations();
+
+        res.status(200).json(locations);
     });
 }

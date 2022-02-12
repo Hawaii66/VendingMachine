@@ -47,12 +47,14 @@ export const GetLocations:GetLocationsType = async () => {
 }
 
 export const CreateMachine:CreateMachineType = async (setting) => {
-    const machine:Machine = {
+    var machine:Machine = {
         name:setting.name,
         id:await GenerateMachineID(),
         location:setting.location,
         slots:[]
     }
+
+    machine.location.machineID = machine.id;
 
     const newMachine:Machine = await machines.insert(machine);
     return newMachine;
@@ -62,7 +64,7 @@ export const FillSlot:FillSlotType = async (id, slotIndex, amount) => {
     var machine = await GetID(id);
     if(machine === null){return null;}
 
-    if(machine.slots.length < slotIndex){return null;}
+    if(machine.slots.length <= slotIndex){return null;}
 
     var slot = machine.slots[slotIndex];
     slot.amount = amount;
@@ -76,7 +78,7 @@ export const CanConsume:CanConsumeType = async (id, slotIndex) => {
     var machine = await GetID(id);
     if(machine === null){return false;}
 
-    if(machine.slots.length < slotIndex){return false;}
+    if(machine.slots.length <= slotIndex){return false;}
 
     return machine.slots[slotIndex].amount > 0;
 }
@@ -85,7 +87,7 @@ export const ConsumeSlot:ConsumeSlotType = async (id, slotIndex) => {
     var machine = await GetID(id);
     if(machine === null){return null;}
 
-    if(machine.slots.length < slotIndex){return null;}
+    if(machine.slots.length <= slotIndex){return null;}
 
     machine.slots[slotIndex].amount -= 1;
 
@@ -96,7 +98,7 @@ export const ChangeSlot:ChangeSlotType = async (id, slotIndex, slot) => {
     var machine = await GetID(id);
     if(machine === null){return null;}
 
-    if(machine.slots.length < slotIndex){return null;}
+    if(machine.slots.length <= slotIndex){return null;}
 
     machine.slots[slotIndex] = slot;
 
@@ -107,7 +109,7 @@ export const RemoveSlot:RemoveSlotType = async (id, slotIndex) => {
     var machine = await GetID(id);
     if(machine === null){return null;}
 
-    if(machine.slots.length < slotIndex){return null;}
+    if(machine.slots.length <= slotIndex){return null;}
 
     machine.slots.splice(slotIndex, 1);
 

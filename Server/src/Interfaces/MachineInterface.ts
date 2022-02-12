@@ -8,6 +8,7 @@ export interface Machine
 
 export interface Location
 {
+    machineID:string,
     name:string,
     lat:number,
     lng:number
