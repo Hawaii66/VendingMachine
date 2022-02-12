@@ -64,7 +64,7 @@ void setup()
 	digitalWrite(dirPin1, HIGH);
 	digitalWrite(dirPin2, HIGH);
 
-	Serial.begin(9600);
+	Serial.begin(115200);
 }
 
 void loop()
