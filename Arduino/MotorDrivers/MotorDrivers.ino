@@ -354,6 +354,44 @@ void AutoHome()
 
 	int defS = 0;
 
+
+	// Y -
+	if (yNeg == true)
+	{
+		defS = analogRead(startYStop);
+		int startYS = defS;
+		SetDir(1, LOW);
+		while (startYS > defS - 100)
+		{
+			StepMotor(1, 1);
+			startYS = analogRead(startYStop);
+		}
+	}
+
+	currentY = 0;
+
+	Serial.print("Y-");
+	Serial.print("\t");
+
+	// Y +
+	if (yPos)
+	{
+		defS = analogRead(endYStop);
+		int endYS = defS;
+		SetDir(1, HIGH);
+		while (endYS > defS - 100)
+		{
+			StepMotor(1, 1);
+			endYS = analogRead(endYStop);
+		}
+		stopY = currentY;
+	}
+	else
+	{
+		stopY = 5000;
+	}
+
+	
 	// X -
 	if (xPos == true)
 	{
@@ -392,42 +430,6 @@ void AutoHome()
 
 	Serial.print("X+");
 	Serial.print("\t");
-
-	// Y -
-	if (yNeg == true)
-	{
-		defS = analogRead(startYStop);
-		int startYS = defS;
-		SetDir(1, LOW);
-		while (startYS > defS - 100)
-		{
-			StepMotor(1, 1);
-			startYS = analogRead(startYStop);
-		}
-	}
-
-	currentY = 0;
-
-	Serial.print("Y-");
-	Serial.print("\t");
-
-	// Y +
-	if (yPos)
-	{
-		defS = analogRead(endYStop);
-		int endYS = defS;
-		SetDir(1, HIGH);
-		while (endYS > defS - 100)
-		{
-			StepMotor(1, 1);
-			endYS = analogRead(endYStop);
-		}
-		stopY = currentY;
-	}
-	else
-	{
-		stopY = 5000;
-	}
 
 	Serial.print("Y+");
 	Serial.print("\t");
