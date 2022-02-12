@@ -4,11 +4,9 @@ import serial_arduino
 def main():
     print("Working")
     arduino = serial_arduino.arduino_serial()  # "/dev/ttyUSB0")
-    # arduino.set_serial("/dev/ttyACM0")
     arduino.set_serial("COM5")
-    # arduino.list_ports()
-    # arduino.auto()
-    arduino.send_text("Auto")
+    arduino.list_ports()
+    arduino.send_text("Debug")
 
     while True:
         val = None
