@@ -1,5 +1,6 @@
 import serial
 import serial.tools.list_ports as port_list
+from time import sleep
 
 
 class arduino_serial:
@@ -7,10 +8,18 @@ class arduino_serial:
         self.serial = -1
         self.xMax = 0
         self.yMax = 0
+        self.joystick = True
+
+    def __del__(self):
+        if self.serial != -1:
+            self.serial.close()
 
     def set_max(self,pos):
         self.xMax = pos[0]
         self.yMax = pos[1]
+
+    def flushInput(self):
+        self.serial.flushInput()
 
     def set_serial(self, usb_path):
         self.serial = serial.Serial()
@@ -22,10 +31,11 @@ class arduino_serial:
         self.serial.xonxoff = False
         self.serial.rtscts = False
         self.serial.dsrdtr = False
-        self.serial.baudrate = 9600
+        self.serial.baudrate = 115200
         self.serial.open()
 
         self.serial.readline()
+        sleep(1)
 
     def list_ports(self):
         ports = list(port_list.comports())
@@ -35,9 +45,9 @@ class arduino_serial:
     def read_line(self):
         return self.serial.readline()
 
-    def __del__(self):
-        if self.serial != -1:
-            self.serial.close()
+    def toggle_joystick(self):
+        self.send_text("joystick")
+        self.joystick = not self.joystick
 
     def auto(self):
         self.send_text("123")

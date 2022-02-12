@@ -6,6 +6,7 @@ def main():
     arduino = serial_arduino.arduino_serial()  # "/dev/ttyUSB0")
     arduino.list_ports()
     arduino.set_serial("/dev/ttyACM0")
+    arduino.toggle_joystick()
 
     while True:
         inp = input("Send Serial: ")
@@ -15,6 +16,12 @@ def main():
             arduino.set_max(maxSize)
         elif inp == "Home":
             parse_command.home(arduino, 0)
+        elif inp == "Spin":
+            parse_command.spin(arduino)
+        #elif inp == "Debug":
+        #    parse_command.debug(arduino, 100)
+        elif inp == "Joystick":
+            arduino.toggle_joystick()
 
 
 

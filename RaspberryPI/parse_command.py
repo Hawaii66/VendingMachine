@@ -1,3 +1,5 @@
+from time import sleep
+
 def auto_home(arduino):
     arduino.send_text("Auto")
     
@@ -14,6 +16,23 @@ def auto_home(arduino):
     yMax = int(split[len(split) - 1])
     return (xMax, yMax)
 
+def debug(arduino, time):
+    arduino.send_text("Debug")
+    sleep(0.1)
+    count = 0
+    while count < time:
+        ser = get_string(arduino)
+        sleep(0.5)
+        split = ser.split("\t")
+        if len(split) == 2:
+            xCoord = int(split[0])
+            yCoord = int(split[1])
+            print(f"{xCoord} : {yCoord}")
+        else:
+            print("Error receving bytes")
+
+        count += 1
+    arduino.send_text("Debug")
 
 def home(arduino, depth):
     if depth == 5:
@@ -28,16 +47,27 @@ def home(arduino, depth):
         elif ser == "Auto home first":
             auto_home(arduino)
             return home(arduino, depth - 1)
-    
+
+
+def spin(arduino):
+    arduino.send_text("Spin")
+
+    while True:
+        ser = get_string(arduino)
+
+        if ser == "Spin Done":
+            return True
+
 
 def get_string(arduino):
     while True:
-        ser = arduino.read_line()
-        ser = ser.decode("utf-8")
-        ser = strip_end(ser)
-        
+        try:
+            ser = arduino.read_line()
+            ser = ser.decode("utf-8")
+            ser = strip_end(ser)
+        except UnicodeDecodeError:
+            return ""  
         return ser
-
 
 def strip_end(text):
     text = text.replace("\r","")
