@@ -5,6 +5,12 @@ import serial.tools.list_ports as port_list
 class arduino_serial:
     def __init__(self):
         self.serial = -1
+        self.xMax = 0
+        self.yMax = 0
+
+    def set_max(self,pos):
+        self.xMax = pos[0]
+        self.yMax = pos[1]
 
     def set_serial(self, usb_path):
         self.serial = serial.Serial()
@@ -26,7 +32,7 @@ class arduino_serial:
         for p in ports:
             print(p)
 
-    def readLine(self):
+    def read_line(self):
         return self.serial.readline()
 
     def __del__(self):
