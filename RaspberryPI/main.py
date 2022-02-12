@@ -14,8 +14,8 @@ def main():
         {
             "index":0,
             "amount":3,
-            "x":260,
-            "y":1800
+            "x":230,
+            "y":1760
         }
     ])
     vend.init_arduino()
