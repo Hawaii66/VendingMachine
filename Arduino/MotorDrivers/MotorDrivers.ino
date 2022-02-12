@@ -107,6 +107,11 @@ void loop()
 			if (knowPos == true)
 			{
 				MoveYX(0, 0);
+				Serial.println("Home")
+			}
+			else
+			{
+				Serial.println("Auto home first")
 			}
 		}
 
