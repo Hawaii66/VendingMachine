@@ -6,7 +6,7 @@ def auto_home(arduino):
     home_text = ""
     while True:
         ser = get_string(arduino)
-        
+        print(ser)
         if "Homing done" in ser:
             home_text = ser
             break
@@ -19,7 +19,13 @@ def auto_home(arduino):
 def move(arduino, x, y):
     print(f"Move: {x} {y}")
     arduino.send_text(f"Move {x} {y}")
-    
+
+    while True:
+        ser = get_string(arduino)
+        
+        if "Done moving to" in ser:
+            return
+
 
 def debug(arduino, time):
     arduino.send_text("Debug")
