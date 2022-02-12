@@ -22,6 +22,9 @@ def main():
         #    parse_command.debug(arduino, 100)
         elif inp == "Joystick":
             arduino.toggle_joystick()
+        elif "Move" in inp:
+            split = inp.split(" ")
+            parse_command.move(arduino, int(split[1]), int(split[2]))
 
 
 

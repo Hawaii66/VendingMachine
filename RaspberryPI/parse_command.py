@@ -16,6 +16,11 @@ def auto_home(arduino):
     yMax = int(split[len(split) - 1])
     return (xMax, yMax)
 
+def move(arduino, x, y):
+    print(f"Move: {x} {y}")
+    arduino.send_text(f"Move {x} {y}")
+    
+
 def debug(arduino, time):
     arduino.send_text("Debug")
     sleep(0.1)
