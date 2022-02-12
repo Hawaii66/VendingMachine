@@ -8,3 +8,5 @@ if(process.env.MONGO_DB_URI === undefined){
 
 export const db = monk(process.env.MONGO_DB_URI);
 export const machines:ICollection = db.get("machines");
+export const raspOrders:ICollection = db.get("raspOrders");
+export const doneOrders:ICollection = db.get("doneOrders");

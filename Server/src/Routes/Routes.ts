@@ -1,6 +1,7 @@
 import {Express} from "express"
 import { AdminRoutes } from "./AdminRoutes";
 import { MachineRoutes } from "./MachineRoutes";
+import { OrderRoutes } from "./OrderRoutes";
 
 export const Routes = (app:Express) => {
     app.get("/",(_,res)=>{
@@ -9,4 +10,5 @@ export const Routes = (app:Express) => {
 
     AdminRoutes(app);
     MachineRoutes(app);
+    OrderRoutes(app);
 }
