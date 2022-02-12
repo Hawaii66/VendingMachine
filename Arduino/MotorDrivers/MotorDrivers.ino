@@ -199,6 +199,7 @@ void loop()
 		if (incoming.startsWith("Spin"))
 		{
 			SpinFull();
+			Serial.println("Spin Done")
 		}
 
 		if (incoming.startsWith("Joystick"))
