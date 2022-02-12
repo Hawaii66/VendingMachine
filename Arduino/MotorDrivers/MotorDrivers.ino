@@ -83,7 +83,6 @@ void loop()
 
 	if (Serial.available() > 0)
 	{
-		Serial.println("Recevied info");
 		String incoming = Serial.readString();
 
 		if (incoming.startsWith("Debug"))
@@ -100,7 +99,6 @@ void loop()
 
 		if (incoming.startsWith("Auto"))
 		{
-			Serial.println("Serial");
 			AutoHome();
 		}
 
