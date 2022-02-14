@@ -6,7 +6,7 @@ type GetOrdersMachineType = (machineID:string) => Promise<RaspberryOrder[]>
 type OrderExitsType = (id:string) => Promise<boolean>
 type GetOrderType = (id:string) => Promise<RaspberryOrder|null>
 type AddOrderType = (setting:Order) => Promise<RaspberryOrder>
-type RemoveOrderType = (id:string) => Promise<boolean>
+type RemoveOrderType = (id:string) => Promise<RaspberryOrder>
 
 export const GetAllOrders:GetAllOrdersType = async () => {
     const all:RaspberryOrder[] = await raspOrders.find();
@@ -55,8 +55,8 @@ export const AddOrder:AddOrderType = async (settings) => {
 }
 
 export const RemoveOrder:RemoveOrderType = async (id) => {
-    await raspOrders.remove({id:id});
-    return true;
+    const del:RaspberryOrder = await raspOrders.findOneAndDelete({id:id});
+    return del;
 }
 
 const GetRandomOrderID = async (str:string) => {
