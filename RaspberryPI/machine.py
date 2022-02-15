@@ -2,7 +2,8 @@ import serial_arduino
 import parse_command
 
 class vending_machine:
-    def __init__(self, slots):
+    def __init__(self, id, slots):
+        self.id = id
         self.arduino = serial_arduino.arduino_serial()  # "/dev/ttyUSB0")
         self.slots = slots
 
