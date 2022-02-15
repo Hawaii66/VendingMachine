@@ -3,6 +3,9 @@ const int dirPin1 = 2;
 const int stepPin1 = 3;
 const int dirPin2 = 4;
 const int stepPin2 = 5;
+const int enaPin1 = 12;
+const int enaPin2 = 13;
+
 const int homeButtonPin = 6;
 const int spinButtonPin = 7;
 const int spinMotorPins[] = {
@@ -53,8 +56,10 @@ void setup()
 	// Declare pins as Outputs
 	pinMode(stepPin1, OUTPUT);
 	pinMode(dirPin1, OUTPUT);
+	pinMode(enaPin1, OUTPUT);
 	pinMode(stepPin2, OUTPUT);
 	pinMode(dirPin2, OUTPUT);
+	pinMode(enaPin2, OUTPUT);
 
 	for (int i = 0; i < (sizeof(spinMotorPins) / sizeof(spinMotorPins[0])); i++)
 	{
@@ -63,6 +68,8 @@ void setup()
 
 	digitalWrite(dirPin1, HIGH);
 	digitalWrite(dirPin2, HIGH);
+	digitalWrite(enaPin1, HIGH);
+	digitalWrite(enaPin2, HIGH);
 
 	Serial.begin(115200);
 }
@@ -206,10 +213,14 @@ void loop()
 		{
 			if (joystick == false)
 			{
+				EnaMotors(true);
+				delayMicroseconds(2500);
 				joystick = true;
 			}
 			else
 			{
+				EnaMotors(false);
+				delayMicroseconds(2500);
 				joystick = false;
 			}
 		}
@@ -217,6 +228,7 @@ void loop()
 
 	if (joystick == true)
 	{
+		EnaMotors(true);
 		JoyStickMovement();
 	}
 
@@ -225,6 +237,20 @@ void loop()
 		Serial.print(currentX);
 		Serial.print("\t");
 		Serial.println(currentY);
+	}
+}
+
+void EnaMotors(bool mode)
+{
+	if (mode == true)
+	{
+		digitalWrite(enaPin1, LOW);
+		digitalWrite(enaPin2, LOW);
+	}
+	else
+	{
+		digitalWrite(enaPin1, HIGH);
+		digitalWrite(enaPin2, HIGH);
 	}
 }
 
@@ -250,6 +276,9 @@ void SpinFull()
 
 void MoveYX(int x, int y)
 {
+	EnaMotors(true);
+	delayMicroseconds(2500);
+
 	if (x < currentX)
 	{
 		SetDir(0, LOW);
@@ -277,10 +306,16 @@ void MoveYX(int x, int y)
 	{
 		StepMotor(0, 1);
 	}
+
+	delayMicroseconds(2500);
+	EnaMotors(false);
 }
 
 void MoveXY(int x, int y)
 {
+	EnaMotors(true);
+	delayMicroseconds(2500);
+
 	if (x < currentX)
 	{
 		SetDir(0, LOW);
@@ -308,6 +343,9 @@ void MoveXY(int x, int y)
 	{
 		StepMotor(1, 1);
 	}
+
+	delayMicroseconds(2500);
+	EnaMotors(false);
 }
 
 void JoyStickMovement()
@@ -339,6 +377,9 @@ void JoyStickMovement()
 
 void AutoHome()
 {
+	EnaMotors(true);
+	delayMicroseconds(2500);
+
 	bool xPos = true;
 	bool xNeg = true;
 	bool yPos = false;
@@ -438,6 +479,9 @@ void AutoHome()
 	Serial.println("");
 
 	knowPos = true;
+
+	delayMicroseconds(2500);
+	EnaMotors(false);
 }
 
 void SetDir(int index, bool dir)
