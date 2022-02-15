@@ -354,7 +354,6 @@ void AutoHome()
 
 	int defS = 0;
 
-
 	// Y -
 	if (yNeg == true)
 	{
@@ -391,7 +390,6 @@ void AutoHome()
 		stopY = 5000;
 	}
 
-	
 	// X -
 	if (xPos == true)
 	{
@@ -483,10 +481,10 @@ void StepBoth(int steps)
 
 		digitalWrite(xPin, HIGH);
 		digitalWrite(yPin, HIGH);
-		delayMicroseconds(2000);
+		delayMicroseconds(2500);
 		digitalWrite(xPin, LOW);
 		digitalWrite(yPin, LOW);
-		delayMicroseconds(2000);
+		delayMicroseconds(2500);
 	}
 }
 
@@ -552,9 +550,9 @@ void StepMotor(int index, int steps)
 		}
 
 		digitalWrite(pin, HIGH);
-		delayMicroseconds(2000);
+		delayMicroseconds(2500);
 		digitalWrite(pin, LOW);
-		delayMicroseconds(2000);
+		delayMicroseconds(2500);
 	}
 }
 
