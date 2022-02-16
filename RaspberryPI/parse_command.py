@@ -16,6 +16,23 @@ def auto_home(arduino):
     yMax = int(split[len(split) - 1])
     return (xMax, yMax)
 
+def ena(arduino, mode):
+    print(mode)
+
+    arduino.send_text("Ena")
+    while True:
+        ser = get_string(arduino)
+        print(ser)
+        if ("1" in ser) and mode == True:
+            print("Motors turned ON")
+            break
+        elif ("0" in ser) and mode == False:
+            print("Motors turned OFF")
+            break
+        elif "Motors state:" in ser:
+            print("Motors in wrong state")
+            arduino.send_text("Ena")
+
 def move(arduino, x, y):
     print(f"Move: {x} {y}")
     arduino.send_text(f"Move {x} {y}")
