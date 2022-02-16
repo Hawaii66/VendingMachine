@@ -36,7 +36,8 @@ const int inputY = A1;
 const int startXStop = A2;
 const int endXStop = A3;
 const int startYStop = A4;
-const int endYStop = A5;
+// const int endYStop = A5;
+const int enaMotorButton = A5;
 
 const int deadZone = 50;
 
@@ -50,6 +51,7 @@ bool dirY = false;
 
 bool debug = false;
 bool joystick = true;
+bool enaMotors = false;
 
 void setup()
 {
@@ -88,6 +90,14 @@ void loop()
 		SpinFull();
 	}
 
+	if (analogRead(enaMotorButton) > 500)
+	{
+		Serial.println("Toggle motors enabled");
+		EnaMotors(enaMotors);
+
+		enaMotors = !enaMotors;
+	}
+
 	if (Serial.available() > 0)
 	{
 		String incoming = Serial.readString();
@@ -102,6 +112,17 @@ void loop()
 			{
 				debug = false;
 			}
+		}
+
+		if (incoming.startsWith("Ena"))
+		{
+			EnaMotors(enaMotors);
+
+			enaMotors = !enaMotors;
+
+			Serial.print("Motors state: ");
+			Serial.print("\t");
+			Serial.println(enaMotors);
 		}
 
 		if (incoming.startsWith("Auto"))
@@ -416,7 +437,7 @@ void AutoHome()
 	// Y +
 	if (yPos)
 	{
-		defS = analogRead(endYStop);
+		/*defS = analogRead(endYStop);
 		int endYS = defS;
 		SetDir(1, HIGH);
 		while (endYS > defS - 100)
@@ -424,12 +445,16 @@ void AutoHome()
 			StepMotor(1, 1);
 			endYS = analogRead(endYStop);
 		}
-		stopY = currentY;
+		stopY = currentY;*/
+		stopY = 5000;
 	}
 	else
 	{
 		stopY = 5000;
 	}
+
+	Serial.print("Y+");
+	Serial.print("\t");
 
 	// X -
 	if (xPos == true)
@@ -470,8 +495,6 @@ void AutoHome()
 	Serial.print("X+");
 	Serial.print("\t");
 
-	Serial.print("Y+");
-	Serial.print("\t");
 	Serial.print("Homing done: \t");
 	Serial.print(stopX);
 	Serial.print("\t");
