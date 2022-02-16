@@ -37,7 +37,7 @@ const int startXStop = A2;
 const int endXStop = A3;
 const int startYStop = A4;
 // const int endYStop = A5;
-const int enaMotorButton = A5;
+const int sendReqButton = A5;
 
 const int deadZone = 50;
 
@@ -74,6 +74,8 @@ void setup()
 	digitalWrite(enaPin2, HIGH);
 
 	Serial.begin(115200);
+
+	EnaMotors(true);
 }
 
 void loop()
@@ -90,12 +92,10 @@ void loop()
 		SpinFull();
 	}
 
-	if (analogRead(enaMotorButton) > 500)
+	if (analogRead(sendReqButton) > 900)
 	{
-		Serial.println("Toggle motors enabled");
-		EnaMotors(enaMotors);
-
-		enaMotors = !enaMotors;
+		Serial.println("Send Req");
+		delay(1000);
 	}
 
 	if (Serial.available() > 0)
@@ -116,9 +116,7 @@ void loop()
 
 		if (incoming.startsWith("Ena"))
 		{
-			EnaMotors(enaMotors);
-
-			enaMotors = !enaMotors;
+			EnaMotors(!enaMotors);
 
 			Serial.print("Motors state: ");
 			Serial.print("\t");
@@ -234,14 +232,10 @@ void loop()
 		{
 			if (joystick == false)
 			{
-				EnaMotors(true);
-				delayMicroseconds(2500);
 				joystick = true;
 			}
 			else
 			{
-				EnaMotors(false);
-				delayMicroseconds(2500);
 				joystick = false;
 			}
 		}
@@ -249,7 +243,6 @@ void loop()
 
 	if (joystick == true)
 	{
-		EnaMotors(true);
 		JoyStickMovement();
 	}
 
@@ -263,7 +256,9 @@ void loop()
 
 void EnaMotors(bool mode)
 {
-	if (mode == true)
+	enaMotors = mode;
+
+	if (enaMotors == true)
 	{
 		digitalWrite(enaPin1, LOW);
 		digitalWrite(enaPin2, LOW);
@@ -297,9 +292,6 @@ void SpinFull()
 
 void MoveYX(int x, int y)
 {
-	EnaMotors(true);
-	delayMicroseconds(2500);
-
 	if (x < currentX)
 	{
 		SetDir(0, LOW);
@@ -329,12 +321,10 @@ void MoveYX(int x, int y)
 	}
 
 	delayMicroseconds(2500);
-	EnaMotors(false);
 }
 
 void MoveXY(int x, int y)
 {
-	EnaMotors(true);
 	delayMicroseconds(2500);
 
 	if (x < currentX)
@@ -364,9 +354,6 @@ void MoveXY(int x, int y)
 	{
 		StepMotor(1, 1);
 	}
-
-	delayMicroseconds(2500);
-	EnaMotors(false);
 }
 
 void JoyStickMovement()
@@ -398,9 +385,6 @@ void JoyStickMovement()
 
 void AutoHome()
 {
-	EnaMotors(true);
-	delayMicroseconds(2500);
-
 	bool xPos = true;
 	bool xNeg = true;
 	bool yPos = false;
@@ -502,9 +486,6 @@ void AutoHome()
 	Serial.println("");
 
 	knowPos = true;
-
-	delayMicroseconds(2500);
-	EnaMotors(false);
 }
 
 void SetDir(int index, bool dir)
