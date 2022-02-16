@@ -12,6 +12,9 @@ class vending_machine:
         self.arduino.set_serial("/dev/ttyACM0")
         #self.arduino.toggle_joystick()
 
+    def get_arduino(self):
+        return self.arduino
+
     def vend_index(self, index):
         if index >= len(self.slots):
             return False
@@ -21,10 +24,13 @@ class vending_machine:
         if slot["amount"] <= 0:
             return False
 
+        parse_command.ena(self.arduino, True)
+        
         maxSize = parse_command.auto_home(self.arduino)
         self.arduino.set_max(maxSize)
         parse_command.home(self.arduino, 0)
         parse_command.move(self.arduino, slot["x"], slot["y"])
+        parse_command.ena(self.arduino, False) #Turn off axis motors to allow Z axis to hook better
         parse_command.spin(self.arduino)
 
         print(slot)
