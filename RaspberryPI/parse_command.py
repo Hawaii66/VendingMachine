@@ -1,4 +1,6 @@
 from time import sleep
+import time
+from dotenv import dotenv_values
 
 def auto_home(arduino):
     arduino.send_text("Auto")
@@ -82,6 +84,43 @@ def spin(arduino):
         if ser == "Spin Done":
             return True
 
+
+def spin_dist(vend):
+    config = dotenv_values(".env")
+    default_dist = int(config["DIST_DEF"])
+    diff = int(config["DIST_DIFF"])
+
+    arduino = vend.get_arduino()
+    arduino.send_text("Spin")
+
+    distances = []
+
+    while True:
+        if arduino.get_serial().inWaiting() > 0:
+            ser = get_string(arduino)
+
+            if ser == "Spin Done":
+                break
+
+        dist = vend.gpio.get_dist()
+        distances.append(dist)
+    
+    start_time = time.time()
+
+    while time.time() - start_time < 7:
+        dist = vend.gpio.get_dist()
+        distances.append(dist)
+        sleep(0.001)
+
+    for i in range(len(distances)):
+        dist = distances[i]
+
+        if dist < default_dist - diff and dist !== 0:
+            print("Found candy")
+            return True
+
+    print("No candy found")
+    return False
 
 def get_string(arduino):
     while True:
