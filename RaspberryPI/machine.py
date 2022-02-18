@@ -1,11 +1,13 @@
 import serial_arduino
 import parse_command
+import gpio_interface
 
 class vending_machine:
     def __init__(self, id, slots):
         self.id = id
         self.arduino = serial_arduino.arduino_serial()  # "/dev/ttyUSB0")
         self.slots = slots
+        self.gpio = gpio_interface.gpio()
 
     def init_arduino(self):
         self.arduino.list_ports()
