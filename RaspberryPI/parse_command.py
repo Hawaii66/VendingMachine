@@ -115,7 +115,7 @@ def spin_dist(vend):
     for i in range(len(distances)):
         dist = distances[i]
 
-        if dist < default_dist - diff and dist !== 0:
+        if dist < default_dist - diff and dist != 0:
             print("Found candy")
             return True
 
