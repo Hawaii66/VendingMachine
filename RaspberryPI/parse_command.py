@@ -116,10 +116,8 @@ def spin_dist(vend):
         dist = distances[i]
 
         if dist < default_dist - diff and dist != 0:
-            print("Found candy")
             return True
 
-    print("No candy found")
     return False
 
 def get_string(arduino):
