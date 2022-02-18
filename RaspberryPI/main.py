@@ -13,7 +13,7 @@ def main():
 
     print("Starting up with a test")
 
-    #fetch.test()
+    fetch.test()
 
     print(f"Starting with index: {machineID}")
 
@@ -26,6 +26,7 @@ def main():
         }
     ])
     vend.init_arduino()
+    parse_command.ena(vend.get_arduino(), False)
     sleep(1)
 
     while True:
@@ -37,7 +38,6 @@ def main():
 
 def exec_order(vend, order):
     index = order["order"]["slotIndex"]
-    print(index)
     vend.vend_index(index)
 
 

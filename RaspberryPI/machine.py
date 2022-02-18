@@ -10,7 +10,6 @@ class vending_machine:
     def init_arduino(self):
         self.arduino.list_ports()
         self.arduino.set_serial("/dev/ttyACM0")
-        #self.arduino.toggle_joystick()
 
     def get_arduino(self):
         return self.arduino
@@ -32,7 +31,5 @@ class vending_machine:
         parse_command.move(self.arduino, slot["x"], slot["y"])
         parse_command.ena(self.arduino, False) #Turn off axis motors to allow Z axis to hook better
         parse_command.spin(self.arduino)
-
-        print(slot)
 
     

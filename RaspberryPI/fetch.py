@@ -29,5 +29,3 @@ def get_one_order():
 def test():
     url = get_url("/")
     r = requests.get(url=url)
-    print(r.status_code)
-    print(r.text)
