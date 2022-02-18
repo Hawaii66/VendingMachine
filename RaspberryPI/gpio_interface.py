@@ -21,12 +21,21 @@ class gpio:
 
         start_time = time.time()
         stop_time = time.time()
-    
+        count = 0
         while GPIO.input(self.dist_echo) == 0:
             start_time = time.time()
-    
+
+            count += 1
+            if count > 10000:
+                return 0
+
+        count = 0
         while GPIO.input(self.dist_echo) == 1:
             stop_time = time.time()
+
+            count += 1
+            if count > 10000:
+                return 0
         
         time_elap = stop_time - start_time
         # multiply with the sonic speed (34300 cm/s)
