@@ -27,7 +27,7 @@ class arduino_serial:
         self.serial.parity = serial.PARITY_NONE
         self.serial.bytesize = serial.EIGHTBITS
         self.serial.stopbits = serial.STOPBITS_ONE
-        self.serial.timeout = 2
+        self.serial.timeout = 1
         self.serial.xonxoff = False
         self.serial.rtscts = False
         self.serial.dsrdtr = False
@@ -44,6 +44,9 @@ class arduino_serial:
 
     def read_line(self):
         return self.serial.readline()
+    
+    def get_serial(self):
+        return self.serial
 
     def toggle_joystick(self):
         self.send_text("joystick")
