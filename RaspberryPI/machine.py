@@ -25,13 +25,24 @@ class vending_machine:
         if slot["amount"] <= 0:
             return False
 
-        parse_command.ena(self.arduino, True)
-        
-        maxSize = parse_command.auto_home(self.arduino)
-        self.arduino.set_max(maxSize)
-        parse_command.home(self.arduino, 0)
-        parse_command.move(self.arduino, slot["x"], slot["y"])
-        parse_command.ena(self.arduino, False) #Turn off axis motors to allow Z axis to hook better
-        parse_command.spin(self.arduino)
+        success = False
+        tries = 0
+        while tries < 3 and success == False:
+            parse_command.ena(self.arduino, True)
+            
+            maxSize = parse_command.auto_home(self.arduino)
+            self.arduino.set_max(maxSize)
+            parse_command.home(self.arduino, 0)
+            parse_command.move(self.arduino, slot["x"], slot["y"])
+            parse_command.ena(self.arduino, False) #Turn off axis motors to allow Z axis to hook better
+            success = parse_command.spin_dist(self)
+            tries += 1
+
+        if success == True:
+            print("Candy reached customer")
+        elif tries >= 3:
+            print("Tries exeded max, candy stuch in machine after 3 tries")
+        else:
+            print("Something went terribly wrong, shouldn't happen")
 
     
