@@ -4,10 +4,11 @@ import { IMachine } from '../../Interfaces/MachineInterface';
 import Loading from '../Utils/Loading';
 import { useQuery } from '../Utils/UseQuery';
 import CandyCard from './CandyCard';
-import Map from "../Map"
+import Map from "../Map/Map"
 
 function Machine() {
     const [machine,setMachine] = useState<IMachine|null>(null);
+    const [loading,setLoading] = useState(false);
 
     const query = useQuery();
 
@@ -19,7 +20,7 @@ function Machine() {
         }).then(res=>res.json().then(defMachine=>setMachine(defMachine)))
     })
 
-    if(machine === null){
+    if(machine === null ||loading){
         return(
             <Loading/>
         )
@@ -33,7 +34,7 @@ function Machine() {
                 <Col>
                     {machine.slots.map((slot,index)=>{
                         return(
-                            <CandyCard slot={slot} key={index}/>
+                            <CandyCard setLoading={setLoading} slot={slot} key={index}/>
                         )
                     })}
                 </Col>

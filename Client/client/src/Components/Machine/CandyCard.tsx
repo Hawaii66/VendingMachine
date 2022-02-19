@@ -1,13 +1,16 @@
-import React from 'react'
-import { Button, Card } from 'react-bootstrap'
-import { ISlot } from '../../Interfaces/MachineInterface'
+import React from 'react';
+import { Button, Card } from 'react-bootstrap';
+import { ISlot } from '../../Interfaces/MachineInterface';
+import StripePayment from "../StripePayment";
 
 interface Props{
-    slot:ISlot
+    slot:ISlot,
+    setLoading:(state:boolean)=>void
 }
 
-function CandyCard({slot}:Props) {
-  return (
+function CandyCard({slot,setLoading}:Props) {
+
+    return (
       <Card border="secondary" style={{width:"80%",margin:"auto",marginBottom:"5%"}}>
           <Card.Img src={slot.thumbnail.url} alt={slot.thumbnail.alt}/>
           <Card.Body>
@@ -19,7 +22,9 @@ function CandyCard({slot}:Props) {
           </Card.Body>
           <Card.Footer style={{display:"flex",justifyContent:"center"}}>
               {slot.amount > 0 ? 
-                <Button variant="success">Köp</Button>
+                <div>
+                    <StripePayment info={slot} setLoading={setLoading}/>
+                </div>
                 :
                 <Button disabled variant="danger">Slut</Button>  
             }

@@ -31,7 +31,9 @@ export const Routes = async (app:Express) => {
                 description:product.name
             },{idempotencyKey})
             .then((result: any)=>{console.log(result);res.status(200).json(result);})
-            .catch((err: any)=>console.log(err));
+            .catch((err: any)=>{console.log(err);res.status(500).json({
+                message:"Error, något gick fel vid köpet"
+            })});
         });
     });
 
