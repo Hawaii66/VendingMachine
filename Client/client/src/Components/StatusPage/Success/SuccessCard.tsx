@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { IMachine } from '../../Interfaces/MachineInterface'
-import { IOrderPublic } from '../../Interfaces/Order'
+import { IMachine } from '../../../Interfaces/MachineInterface'
+import { IOrderPublic } from '../../../Interfaces/Order'
 
 interface Props
 {

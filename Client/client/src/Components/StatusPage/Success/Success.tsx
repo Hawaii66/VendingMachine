@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import "./StatusPage.css"
-import SuccessSVGComponent from './SuccessSVGComponent';
-import { Card, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { useQuery } from '../Utils/UseQuery';
-import { IOrderPublic } from '../../Interfaces/Order';
+import "../StatusPage.css"
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '../../Utils/UseQuery';
+import { IOrderPublic } from '../../../Interfaces/Order';
+import { IMachine } from '../../../Interfaces/MachineInterface';
 import SuccessCard from './SuccessCard';
-import { IMachine } from '../../Interfaces/MachineInterface';
-import Loading from '../Utils/Loading';
 import SuccessCardLoading from './SuccessCardLoading';
-import ErrorModal from './ErrorModal';
+import ErrorModal from "./ErrorModal"
+import SuccessSVGComponent from "./SuccessSVGComponent"
+import SuccessError from './SuccessError';
 
 function Success() {
-    const [error,setError] = useState("");
+    const [error,setError] = useState<{code:number,text:string}|null>(null);
     const [order,setOrder] = useState<IOrderPublic|null>(null);
     const [machine, setMachine] = useState<IMachine|null>(null);
     const [loading,setLoading] = useState(true);
@@ -41,9 +41,9 @@ function Success() {
                 setMachine(machine);
                 setOrder(data);
             }else{
-                setError(await response.text());
+                setError({text:await response.text(),code:response.status});
             }
-
+            console.log("LOADING FALSE");
             setLoading(false);
         }
 
@@ -57,6 +57,7 @@ function Success() {
             </div>
             <h1 style={{color:"#05c46b"}}>Köp genomfört!</h1>
             {loading && <SuccessCardLoading/>}
+            {error !== null && <SuccessError code={error.code} text={error.text}/>}
             {(loading === true || order === null || machine === null) ? <></> : <SuccessCard machine={machine} order={order}/>}
             <div style={{display:"flex",alignItems:"center"}}>
                 <Button style={{margin:"auto",marginTop:"15%",marginBottom:"4rem"}} onClick={()=>home()}>Fortsätt handla</Button>
