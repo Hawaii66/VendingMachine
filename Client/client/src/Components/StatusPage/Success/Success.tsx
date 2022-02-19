@@ -43,7 +43,7 @@ function Success() {
             }else{
                 setError({text:await response.text(),code:response.status});
             }
-            console.log("LOADING FALSE");
+            
             setLoading(false);
         }
 

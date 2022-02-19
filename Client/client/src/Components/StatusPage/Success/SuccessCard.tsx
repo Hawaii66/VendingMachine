@@ -20,7 +20,7 @@ function SuccessCard({order,machine}:Props) {
             <Card.Footer>
                 <Card.Text><b>Maskin:</b> {machine.name}</Card.Text>
                 <Card.Text><b>Plats:</b> {machine.location.name}</Card.Text>
-                <Card.Text><b>Status:</b> <div style={{color:"#05c46b"}}>Skickar ut godis ...</div></Card.Text>
+                <Card.Text><b>Status:</b> <span style={{color:"#05c46b"}}>Skickar ut godis ...</span></Card.Text>
             </Card.Footer>
         </Card>
     )
