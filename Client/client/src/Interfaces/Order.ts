@@ -1,3 +1,5 @@
+import { ILocation } from "./MachineInterface";
+
 export interface IRaspberryOrder
 {
     id:string,
@@ -16,5 +18,5 @@ export interface IOrder
     insertDate:number,
     machineID:string,
     slotIndex:number,
-    location:Location
+    location:ILocation
 }

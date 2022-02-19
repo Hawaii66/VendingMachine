@@ -4,6 +4,7 @@ import { machines } from "./DatabaseAPI";
 type GetAllType = () => Promise<IMachine[]>;
 type GetIDType = (id:string) => Promise<IMachine|null>;
 type GetLocationsType = () => Promise<ILocation[]>;
+type GetLocationType = (id:string) => Promise<ILocation|null>;
 type CreateMachineType = (machine:IMachine) => Promise<IMachine|null>;
 type IDExistsType = (id:string) => Promise<boolean>;
 type FillSlotType = (id:string, slotIndex:number, amount:number) => Promise<IMachine|null>;
@@ -44,6 +45,12 @@ export const GetLocations:GetLocationsType = async () => {
     }
 
     return locs;
+}
+
+export const GetLocation:GetLocationType = async (id) => {
+    const machine = await GetID(id);
+    if(machine === null){return null;}
+    return machine.location;
 }
 
 export const CreateMachine:CreateMachineType = async (setting) => {

@@ -18,9 +18,13 @@ export const MachineRoutes = (app:Express) => {
     
     app.post("/machines/insert", AuthToken, async (req,res)=> {
         const id = req.body.id;
+        const oldMachine = await GetID(id);
+        if(oldMachine === null){return res.status(500).send("Error getting machine");}
+
         const slot:ISlot = {
             amount:0,
             cost:req.body.cost,
+            index:oldMachine.slots.length,
             imgs:req.body.imgs,
             thumbnail:req.body.thumbnail,
             x:req.body.x,
@@ -42,6 +46,7 @@ export const MachineRoutes = (app:Express) => {
         const index = req.body.index;
         const slot:ISlot = {
             amount:0,
+            index:index,
             cost:req.body.cost,
             imgs:req.body.imgs,
             thumbnail:req.body.thumbnail,

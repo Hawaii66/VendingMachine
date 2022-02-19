@@ -18,6 +18,7 @@ export interface ISlot
 {
     name:string,
     info:string,
+    index:number,
     x:number,
     y:number,
     grid:{
