@@ -40,19 +40,16 @@ function StripePayment({info,setLoading}:Props) {
                 "Content-Type":"application/json"
             },
             body:JSON.stringify(body)
-        }).then(res=>res.json().then(
-            data=>{
-                console.log(res);
-                console.log(data);
-
-                if(res.status === 200){
+        }).then(res=>{
+            if(res.status === 200){
+                res.json().then(data=>{
                     navigate(`/success?id=${data.order.orderID}`);
-                }
-                else{
-                    navigate(`/error?message=${res.text}`)
-                }
-            }
-        ))
+                });
+            }else{
+                res.text().then(text=>{
+                    navigate(`/error?code=${res.status}&text=${text}`)
+                })
+            }})
 
         setLoading(true);
     }
