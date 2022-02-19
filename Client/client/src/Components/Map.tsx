@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import L from 'leaflet'
+import { ILocation } from '../Interfaces/MachineInterface'
 
 const GetIcon = (size:{x:number,y:number}) => {
     return L.icon({
@@ -10,40 +11,70 @@ const GetIcon = (size:{x:number,y:number}) => {
     });
 }
 
-function LocationMarker() {
-    const [position, setPosition] = useState<any>(null)
-    const map = useMapEvents({
-      click() {
-        map.locate()
-      },
-      locationfound(e) {
-        setPosition(e.latlng)
-        map.flyTo(e.latlng, map.getZoom())
-      },
-    })
-  
-    return position === null ? null : (
+interface Props {
+  locations:ILocation[]
+}
+
+interface LocProps{
+  pos:ILocation
+}
+
+function LocationMarker({pos}:LocProps) {
+    return pos === null ? null : (
       <Marker
-      position={position}
-      icon={GetIcon({x:30,y:45})}
+      position={
+        {
+          lat:pos.lat,
+          lng:pos.lng
+        }
+      }
+      icon={GetIcon({x:20,y:30})}
       > 
         <Popup>You are here</Popup>
       </Marker>
     )
   }
 
-function Map() {
+  function LocationMarker123() {
+    const [position, setPosition] = useState<any>(null);
+
+    const map = useMap();
+
+    useEffect(() => {
+      map.locate().on("locationfound", function (e:any) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
+        const radius = e.accuracy;
+        const circle = L.circle(e.latlng, radius);
+        circle.addTo(map);
+      });
+    }, [map]);
+
+    return position === null ? null : (<></>
+    );
+  }
+
+
+function Map({locations}:Props) {
+  const [position, setPosition] = useState<any>([0,0]);
+  
+
   return (
     <MapContainer 
-    center={[51.505, -0.09]} 
+    center={position} 
     zoom={13}
-    style={{height:500,width:"80%"}}
+    style={{height:300,width:"90%",margin:"auto",borderRadius:"30px"}}
     >
         <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker />
+        {locations.map((loc, index)=>{
+          return(
+            <LocationMarker key={index} pos={loc} />
+          )
+        })}
+        <LocationMarker123/>
     </MapContainer>
   )
 }
