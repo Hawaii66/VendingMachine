@@ -16,7 +16,7 @@ function LocationMarker({pos}:Props) {
           lng:pos.lng
         }
       }
-      icon={GetIcon({x:15,y:15/2+15})}
+      icon={GetIcon({x:50,y:50})}
       >
         <Popup>{pos.name}</Popup>
       </Marker>
@@ -25,8 +25,10 @@ function LocationMarker({pos}:Props) {
 
 const GetIcon = (size:{x:number,y:number}) => {
     return L.icon({
-        iconUrl:require("../../Images/VendingMachine.png"),
-        iconSize:[size.x,size.y]
+      iconUrl:require("../../Images/VendingMachine.png"),
+      iconSize:[size.x,size.y],
+      iconAnchor:[25,0],
+      popupAnchor:[0,0]
     });
 }
 

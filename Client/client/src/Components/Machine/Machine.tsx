@@ -51,7 +51,7 @@ function Machine() {
                 </Col>
             </Row>
             <div id="karta">
-                <Map locations={[machine.location]}/>
+                <Map single={true} locations={[machine.location]}/>
             </div>
         </div>
     )
