@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap";
 import StripeCheckout from "react-stripe-checkout"
-import { ISlot } from "../Interfaces/MachineInterface";
+import { IMachine, ISlot } from "../Interfaces/MachineInterface";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "./Utils/UseQuery";
 
 interface Props{
     info:ISlot|null,
@@ -10,15 +11,23 @@ interface Props{
 
 function StripePayment({info,setLoading}:Props) {
     const navigate = useNavigate();
+    const query = useQuery();
 
     const onToken = (token:any) => {
         if(info === null){return;}
         
+        const machineID = query.get("id");
+        if(machineID === null){return;}
+
         const body = {
             token,
             product:{
                 price:info.cost,
                 name:info.name
+            },
+            data:{
+                machineID:machineID,
+                slotIndex:info.index
             }
         }
 
