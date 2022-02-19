@@ -1,17 +1,17 @@
-import { Location, Machine, Slot } from "../Interfaces/MachineInterface";
+import { ILocation, IMachine, ISlot } from "../Interfaces/MachineInterface";
 import { machines } from "./DatabaseAPI";
 
-type GetAllType = () => Promise<Machine[]>;
-type GetIDType = (id:string) => Promise<Machine|null>;
-type GetLocationsType = () => Promise<Location[]>;
-type CreateMachineType = (machine:Machine) => Promise<Machine|null>;
+type GetAllType = () => Promise<IMachine[]>;
+type GetIDType = (id:string) => Promise<IMachine|null>;
+type GetLocationsType = () => Promise<ILocation[]>;
+type CreateMachineType = (machine:IMachine) => Promise<IMachine|null>;
 type IDExistsType = (id:string) => Promise<boolean>;
-type FillSlotType = (id:string, slotIndex:number, amount:number) => Promise<Machine|null>;
-type SetMachineType = (id:string, machine:Machine) => Promise<Machine|null>;
-type ChangeSlotType = (id:string, slotIndex:number, slot:Slot) => Promise<Machine|null>;
-type RemoveSlotType = (id:string, slotIndex:number) => Promise<Machine|null>;
-type InsertSlotType = (id:string, slot:Slot) => Promise<Machine|null>;
-type ConsumeSlotType = (id:string, slotIndex:number) => Promise<Machine|null>;
+type FillSlotType = (id:string, slotIndex:number, amount:number) => Promise<IMachine|null>;
+type SetMachineType = (id:string, machine:IMachine) => Promise<IMachine|null>;
+type ChangeSlotType = (id:string, slotIndex:number, slot:ISlot) => Promise<IMachine|null>;
+type RemoveSlotType = (id:string, slotIndex:number) => Promise<IMachine|null>;
+type InsertSlotType = (id:string, slot:ISlot) => Promise<IMachine|null>;
+type ConsumeSlotType = (id:string, slotIndex:number) => Promise<IMachine|null>;
 type CanConsumeType = (id:string, slotIndex:number) => Promise<boolean>;
 
 export const GetAll:GetAllType = async () => {
@@ -19,7 +19,7 @@ export const GetAll:GetAllType = async () => {
 }
 
 export const GetID:GetIDType = async (id) => {
-    const machine:Machine = await machines.findOne({id:id});
+    const machine:IMachine = await machines.findOne({id:id});
 
     return machine;
 }
@@ -38,7 +38,7 @@ export const SetMachine:SetMachineType = async (id, machine) => {
 
 export const GetLocations:GetLocationsType = async () => {
     const machines = await GetAll();
-    var locs:Location[] = [];
+    var locs:ILocation[] = [];
     for(var i = 0; i < machines.length; i ++){
         locs.push(machines[i].location);
     }
@@ -47,7 +47,7 @@ export const GetLocations:GetLocationsType = async () => {
 }
 
 export const CreateMachine:CreateMachineType = async (setting) => {
-    var machine:Machine = {
+    var machine:IMachine = {
         name:setting.name,
         id:await GenerateMachineID(),
         location:setting.location,
@@ -56,7 +56,7 @@ export const CreateMachine:CreateMachineType = async (setting) => {
 
     machine.location.machineID = machine.id;
 
-    const newMachine:Machine = await machines.insert(machine);
+    const newMachine:IMachine = await machines.insert(machine);
     return newMachine;
 }
 

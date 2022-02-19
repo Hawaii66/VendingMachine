@@ -1,5 +1,5 @@
 import {Express} from "express"
-import { GetAll, GetID } from "../Database/MachinesDB";
+import { GetID } from "../Database/MachinesDB";
 import { AuthToken } from "../Utils/Middelware"
 
 export const AdminRoutes = (app:Express) => {

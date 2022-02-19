@@ -1,11 +1,11 @@
 import {Express} from "express"
 import { ChangeSlot, CreateMachine, FillSlot, GetAll, GetID, GetLocations, InsertSlot, RemoveSlot, SetMachine } from "../Database/MachinesDB";
-import { Machine, Slot } from "../Interfaces/MachineInterface"
+import { IMachine, ISlot } from "../Interfaces/MachineInterface"
 import { AuthToken } from "../Utils/Middelware";
 
 export const MachineRoutes = (app:Express) => {
     app.post("/machines/create", AuthToken, async (req,res)=>{
-        const settings:Machine = {
+        const settings:IMachine = {
             id:"",
             name:req.body.name,
             location:req.body.location,
@@ -18,13 +18,17 @@ export const MachineRoutes = (app:Express) => {
     
     app.post("/machines/insert", AuthToken, async (req,res)=> {
         const id = req.body.id;
-        const slot:Slot = {
+        const slot:ISlot = {
             amount:0,
             cost:req.body.cost,
             imgs:req.body.imgs,
             thumbnail:req.body.thumbnail,
             x:req.body.x,
             y:req.body.y,
+            grid:{
+                x:req.body.gridX,
+                y:req.body.gridY
+            },
             name:req.body.name,
             info:req.body.info
         }
@@ -36,13 +40,17 @@ export const MachineRoutes = (app:Express) => {
     app.post("/machines/set", AuthToken, async (req,res)=>{
         const id = req.body.id;
         const index = req.body.index;
-        const slot:Slot = {
+        const slot:ISlot = {
             amount:0,
             cost:req.body.cost,
             imgs:req.body.imgs,
             thumbnail:req.body.thumbnail,
             x:req.body.x,
             y:req.body.y,
+            grid:{
+                x:req.body.gridX,
+                y:req.body.gridY
+            },
             name:req.body.name,
             info:req.body.info
         }

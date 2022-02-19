@@ -1,5 +1,5 @@
 import {Express} from "express"
-import { Order } from "../Interfaces/Order";
+import { IOrder } from "../Interfaces/Order";
 import { AddOrder, GetAllOrders } from "../Database/OrderDB";
 import { AuthToken } from "../Utils/Middelware"
 
@@ -10,7 +10,7 @@ export const OrderRoutes = (app:Express) => {
     });
 
     app.post("/orders/create", async (req,res)=>{
-        const order:Order = {
+        const order:IOrder = {
             cost:req.body.cost,
             createDate:req.body.createDate,
             id:"",
