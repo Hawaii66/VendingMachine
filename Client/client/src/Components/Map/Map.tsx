@@ -10,10 +10,15 @@ interface Props {
 }
 
 function Map({locations}:Props) {
+  var center = [0,0];
+  if(locations.length === 1){
+    center = [locations[0].lat,locations[0].lng];
+  }
+
   return (
     <MapContainer 
-    center={[0,0]} 
-    zoom={13}
+    center={{lat:center[0],lng:center[1]}} 
+    zoom={12}
     style={{height:300,width:"90%",margin:"auto",borderRadius:"30px",marginBottom:"2rem"}}
     >
         <TileLayer
@@ -25,7 +30,7 @@ function Map({locations}:Props) {
             <LocationMarker key={index} pos={loc} />
           )
         })}
-        <ZoomToUser/>
+        {locations.length > 1 && <ZoomToUser/>}
     </MapContainer>
   )
 }

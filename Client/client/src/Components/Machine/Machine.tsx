@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+import AnchorLink from "react-anchor-link-smooth-scroll";
 import { IMachine } from '../../Interfaces/MachineInterface';
 import Loading from '../Utils/Loading';
 import { useQuery } from '../Utils/UseQuery';
@@ -27,9 +28,19 @@ function Machine() {
     }
 
     return (
-        <div>
-            <h1 style={{textAlign:"center"}}>{machine.name}</h1>
-            <Map locations={[machine.location]}/>
+        <div style={{marginBottom:"1rem",marginTop:"1rem"}}>
+            <Row style={{width:"80%",margin:"auto"}}>
+                <Col>
+                    <h1 style={{textAlign:"center"}}>{machine.name}</h1>
+                </Col>
+                <Col xs={3}>
+                    <Button variant="info">
+                        <AnchorLink href="#karta">
+                            Karta
+                        </AnchorLink>
+                    </Button>
+                </Col>
+            </Row>
             <Row lg={1}>
                 <Col>
                     {machine.slots.map((slot,index)=>{
@@ -39,6 +50,9 @@ function Machine() {
                     })}
                 </Col>
             </Row>
+            <div id="karta">
+                <Map locations={[machine.location]}/>
+            </div>
         </div>
     )
 }

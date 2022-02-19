@@ -16,7 +16,7 @@ function LocationMarker({pos}:Props) {
           lng:pos.lng
         }
       }
-      icon={GetIcon({x:20,y:30})}
+      icon={GetIcon({x:15,y:15/2+15})}
       >
         <Popup>{pos.name}</Popup>
       </Marker>
