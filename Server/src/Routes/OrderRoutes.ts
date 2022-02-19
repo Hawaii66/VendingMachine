@@ -25,6 +25,7 @@ export const OrderRoutes = (app:Express) => {
         const data:IOrderPublic = {
             name:order.name,
             machineID:order.machineID,
+            index:order.slotIndex,
             cost:order.cost,
             image:slot.thumbnail,
             info:slot.info

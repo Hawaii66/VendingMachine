@@ -26,6 +26,7 @@ export interface IOrderPublic
     name:string,
     machineID:string,
     cost:number,
+    index:number,
     image:IImage,
     info:string
 }

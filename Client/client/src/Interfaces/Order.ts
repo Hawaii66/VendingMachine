@@ -28,4 +28,5 @@ export interface IOrderPublic
     cost:number,
     image:IImage,
     info:string
+    index:number,
 }
