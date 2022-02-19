@@ -1,4 +1,4 @@
-import { ILocation } from "./MachineInterface";
+import { IImage, ILocation } from "./MachineInterface";
 
 export interface IRaspberryOrder
 {
@@ -19,4 +19,13 @@ export interface IOrder
     machineID:string,
     slotIndex:number,
     location:ILocation
+}
+
+export interface IOrderPublic
+{
+    name:string,
+    machineID:string,
+    cost:number,
+    image:IImage,
+    info:string
 }
