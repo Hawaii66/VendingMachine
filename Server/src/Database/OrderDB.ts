@@ -5,6 +5,7 @@ type GetAllOrdersType = () => Promise<IRaspberryOrder[]>
 type GetOrdersMachineType = (machineID:string) => Promise<IRaspberryOrder[]>
 type OrderExitsType = (id:string) => Promise<boolean>
 type GetOrderType = (id:string) => Promise<IRaspberryOrder|null>
+type GetFullOrderType = (id:string) => Promise<IOrder|null>;
 type AddOrderType = (setting:IOrder) => Promise<IRaspberryOrder>
 type RemoveOrderType = (id:string) => Promise<IRaspberryOrder>
 
@@ -26,6 +27,11 @@ export const OrderExits:OrderExitsType = async (id) => {
 
 export const GetOrder:GetOrderType = async (id) => {
     const order:IRaspberryOrder = await raspOrders.findOne({id:id});
+    return order;
+}
+
+export const GetFullOrder:GetFullOrderType = async (id) => {
+    const order:IOrder = await doneOrders.findOne({id:id});
     return order;
 }
 
