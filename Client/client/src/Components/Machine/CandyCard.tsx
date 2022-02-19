@@ -9,7 +9,6 @@ interface Props{
 }
 
 function CandyCard({slot,setLoading}:Props) {
-
     return (
       <Card border="secondary" style={{width:"80%",margin:"auto",marginBottom:"5%"}}>
           <Card.Img src={slot.thumbnail.url} alt={slot.thumbnail.alt}/>

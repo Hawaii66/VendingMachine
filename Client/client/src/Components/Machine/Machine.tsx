@@ -18,7 +18,7 @@ function Machine() {
         fetch(`${process.env.REACT_APP_SERVER_URL}/machines/get/${id}`,{
             method:"GET"
         }).then(res=>res.json().then(defMachine=>setMachine(defMachine)))
-    })
+    },[])
 
     if(machine === null ||loading){
         return(

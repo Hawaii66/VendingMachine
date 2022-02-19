@@ -1,0 +1,46 @@
+.svgParent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svgParent svg {
+    animation: successSpin 1s ease-in-out forwards;
+    width: 40%;
+    margin-top: 20%;
+}
+
+.Success h1 {
+    text-align: center;
+    text-shadow: 1px 1px #0be881;
+}
+
+.ErrorButton {
+    width: 20%;
+    padding: 2px;
+    font-size: 0.75rem;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
+
+@keyframes successSpin {
+    0% {
+        opacity: 0;
+        transform: rotate(-90deg) scale(0);
+    }
+    10% {
+        opacity: 1;
+        transform: rotate(-75deg) scale(0.5);
+    }
+    85% {
+        transform: rotate(45deg) scale(1.1);
+    }
+    90% {
+        transform: rotate(40deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}

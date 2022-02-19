@@ -46,10 +46,10 @@ function StripePayment({info,setLoading}:Props) {
                 console.log(data);
 
                 if(res.status === 200){
-                    navigate("/success");
+                    navigate(`/success?id=${data.order.orderID}`);
                 }
                 else{
-                    navigate("/error")
+                    navigate(`/error?message=${res.text}`)
                 }
             }
         ))
