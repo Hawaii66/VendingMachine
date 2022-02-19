@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import StripeCheckout from "react-stripe-checkout"
 
 function StripePayment() {
@@ -34,7 +35,9 @@ function StripePayment() {
         locale="sv"
         allowRememberMe
       >
-
+          <Button variant="success">
+              Köp
+          </Button>
       </StripeCheckout>
     )
 }
