@@ -3,6 +3,27 @@
     margin: auto;
 }
 
+@media screen and (min-width: 500px) {
+    .instructions {
+        width: 70%;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .instructions {
+        width: 50%;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .instructions {
+        width: 20%;
+        margin: auto;
+    }
+}
+
 .instructions li {
     color: #485460;
 }

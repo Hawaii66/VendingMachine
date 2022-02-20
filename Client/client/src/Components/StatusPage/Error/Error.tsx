@@ -17,7 +17,7 @@ function Error() {
 	}
 
     return (
-		<div>
+		<div className="Success">
 			<div className="svgParent" style={{marginBottom:"3rem"}}>
 				<ErrorSVGComponent/>
 			</div>

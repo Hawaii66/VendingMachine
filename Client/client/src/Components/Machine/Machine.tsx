@@ -29,7 +29,7 @@ function Machine() {
     }
 
     return (
-        <div style={{marginBottom:"1rem",marginTop:"1rem"}}>
+        <div style={{marginBottom:"1rem",marginTop:"1rem",maxWidth:"700px",margin:"auto"}}>
             <Row style={{width:"80%",margin:"auto"}}>
                 <Col>
                     <h1 style={{textAlign:"center"}}>{machine.name}</h1>
@@ -39,17 +39,17 @@ function Machine() {
                 <Col>
                     <h5>{machine.location.name}</h5>
                 </Col>
-                <Col xs={7}>
-                    <Button variant="info" style={{marginRight:"0.5rem",marginBottom:"1rem"}}>
-                        <AnchorLink href="#karta">
+                <Col xs={7} style={{display:"flex",justifyContent:"center",alignItems:"center",marginRight:"0.1rem"}}>
+                    <AnchorLink href="#karta">
+                        <Button variant="info" style={{marginRight:"0.5rem",marginBottom:"1rem"}}>
                             Karta
-                        </AnchorLink>
-                    </Button>
-                    <Button variant="info" style={{marginBottom:"1rem"}}>
-                        <Link to="/">
-                            Tillbaka
-                        </Link>
-                    </Button>
+                        </Button>
+                    </AnchorLink>
+                    <Link to="/">
+                        <Button variant="info" style={{marginBottom:"1rem"}}>
+                                Tillbaka
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             <Row lg={1}>

@@ -25,8 +25,8 @@ export const Routes = async (app:Express) => {
         if(!canConsume){return res.status(400).send("Error, Det finns ingen godis här!")}
 
         const location = await GetLocation(data.machineID);
-        if(location === null){return res.status(500).send("Error, Kan inte hitta maskinens plats")}
-
+        if(location === null ||true){return res.status(500).send("Error, Kan inte hitta maskinens plats")}
+/*
         const idempotencyKey = uuid();
 
         const customer = await stripe.customers.create({
@@ -56,7 +56,7 @@ export const Routes = async (app:Express) => {
 
         const order = await AddOrder(orderSettings);
         
-        return res.status(200).json({charge:chargeResult,order:order})
+        return res.status(200).json({charge:chargeResult,order:order})*/
     });
 
     /*var client = await GetClient();
