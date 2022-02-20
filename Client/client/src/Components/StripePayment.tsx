@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import StripeCheckout from "react-stripe-checkout"
-import { IMachine, ISlot } from "../Interfaces/MachineInterface";
+import { ISlot } from "../Interfaces/MachineInterface";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "./Utils/UseQuery";
 

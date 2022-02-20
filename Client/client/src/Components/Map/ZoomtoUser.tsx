@@ -7,18 +7,24 @@ function ZoomToUser() {
 
     const map = useMap();
 
-    useEffect(() => {
-      map.locate().on("locationfound", function (e:any) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
-      });
-    }, [map]);
+	
+	useEffect(() => {
+		const moveUser = () => {
+			map.locate().on("locationfound", function (e:any) {
+				setPosition(e.latlng);
+				map.flyTo(e.latlng, map.getZoom());
+				const radius = e.accuracy;
+				const circle = L.circle(e.latlng, radius);
+				circle.addTo(map);
+				console.log("MOVED TO USER");
+			});
+		}
 
-    return position === null ? null : (<></>
-    );
+		moveUser();
+	},[map]);
+
+	return position === null ? null : (<></>
+	);
 }
 
 export default ZoomToUser

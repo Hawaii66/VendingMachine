@@ -20,7 +20,7 @@ function Map({locations,single}:Props) {
   return (
     <MapContainer
     center={{lat:center[0],lng:center[1]}} 
-    zoom={12}
+    zoom={11}
     style={{height:300,width:"90%",margin:"auto",borderRadius:"30px",marginBottom:"2rem"}}
     tap={false}
     >

@@ -6,6 +6,7 @@ import Loading from '../Utils/Loading';
 import { useQuery } from '../Utils/UseQuery';
 import CandyCard from './CandyCard';
 import Map from "../Map/Map"
+import { Link } from 'react-router-dom';
 
 function Machine() {
     const [machine,setMachine] = useState<IMachine|null>(null);
@@ -19,7 +20,7 @@ function Machine() {
         fetch(`${process.env.REACT_APP_SERVER_URL}/machines/get/${id}`,{
             method:"GET"
         }).then(res=>res.json().then(defMachine=>setMachine(defMachine)))
-    },[])
+    },[id])
 
     if(machine === null ||loading){
         return(
@@ -33,11 +34,21 @@ function Machine() {
                 <Col>
                     <h1 style={{textAlign:"center"}}>{machine.name}</h1>
                 </Col>
-                <Col xs={3}>
-                    <Button variant="info">
+            </Row>
+            <Row style={{width:"80%",margin:"auto"}} className="justify-content-md-center">
+                <Col>
+                    <h5>{machine.location.name}</h5>
+                </Col>
+                <Col xs={7}>
+                    <Button variant="info" style={{marginRight:"0.5rem",marginBottom:"1rem"}}>
                         <AnchorLink href="#karta">
                             Karta
                         </AnchorLink>
+                    </Button>
+                    <Button variant="info" style={{marginBottom:"1rem"}}>
+                        <Link to="/">
+                            Tillbaka
+                        </Link>
                     </Button>
                 </Col>
             </Row>
