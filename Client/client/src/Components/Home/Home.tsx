@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import InstallPWA from '../InstallPWA';
 
 import Map from "../Map/Map";
 import "./Home.css";
@@ -33,6 +34,9 @@ function Home() {
 				<li>Vänta 1 minut</li>
 				<li>Din godis levereras till dig utan kontanter</li>
 			</ol>
+			<div className="pwa">
+				<InstallPWA/>
+			</div>
 		</div>
 	)
 }

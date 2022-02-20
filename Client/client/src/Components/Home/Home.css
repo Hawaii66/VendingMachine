@@ -1,6 +1,14 @@
 .instructions {
     width: 90%;
     margin: auto;
+    margin-bottom: 1rem;
+}
+
+.pwa {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (min-width: 500px) {
