@@ -26,7 +26,7 @@ function Home() {
 			<h3 className="InstruktionText">Instruktioner:</h3>
 			<ol className="instructions">
 				<li>Gå till en av maskinerna på kartan ovan</li>
-				<li>Klicka på maskinen du står vid</li>
+				<li>På kartan klicka på den maskinen du är vid</li>
 				<li>Välj en godis som maskinen erbjuder</li>
 				<li>Köp godisen med ditt kort</li>
 				<li>Klicka på den gröna knappen på maskinen</li>
