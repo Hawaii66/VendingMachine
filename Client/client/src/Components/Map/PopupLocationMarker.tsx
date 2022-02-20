@@ -33,7 +33,7 @@ const GetIcon = (size:{x:number,y:number}) => {
     return L.icon({
         iconUrl:require("../../Images/VendingMachine.png"),
         iconSize:[size.x,size.y],
-        iconAnchor:[25,0],
+        iconAnchor:[25,40],
         popupAnchor:[0,0]
     });
 }
