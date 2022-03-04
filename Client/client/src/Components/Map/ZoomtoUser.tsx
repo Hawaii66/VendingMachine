@@ -13,10 +13,9 @@ function ZoomToUser() {
 			map.locate().on("locationfound", function (e:any) {
 				setPosition(e.latlng);
 				map.flyTo(e.latlng, map.getZoom());
-				const radius = e.accuracy;
+				const radius = Math.min(e.accuracy, 30);
 				const circle = L.circle(e.latlng, radius);
 				circle.addTo(map);
-				console.log("MOVED TO USER");
 			});
 		}
 
