@@ -7,7 +7,8 @@
         "start": "node src/index.js",
         "dev": "nodemon --exec ts-node src/index.ts",
         "build": "tsc && node src/index.js",
-        "teststart": "ts-node-dev --respawn src/index.ts"
+        "teststart": "ts-node-dev --respawn src/index.ts",
+        "test": "nodemon --exec ts-node src/Database/Postgres/databaseTest.ts"
     },
     "author": "HawaiiDev",
     "license": "ISC",
@@ -17,6 +18,7 @@
         "typescript": "^4.5.5"
     },
     "dependencies": {
+        "@types/pg": "^8.6.5",
         "@types/stripe": "^8.0.417",
         "axios": "^0.26.0",
         "cors": "^2.8.5",
@@ -24,6 +26,7 @@
         "express": "^4.17.2",
         "monk": "^7.3.4",
         "nodemon": "^2.0.15",
+        "pg": "^8.7.3",
         "stripe": "^8.203.0",
         "swish-merchant": "^0.1.0",
         "ts-node": "^10.5.0",

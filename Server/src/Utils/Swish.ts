@@ -18,8 +18,11 @@ export const GetClient = async() => {
     return client;
 }
 
-const createId = () => {
-    return Date.now()
+export const createId = () => {
+    var crypto = require("crypto");
+    var id = crypto.randomBytes(20).toString('hex');
+    return id.toUpperCase().slice(0,32);
+    //return Math.floor(Math.random() * Math.pow(10, 32))
     //return Date.now() + ":" + Math.floor(Math.random() * 1000000) + ":swish"
 }
 
@@ -34,22 +37,31 @@ export async function createPaymentRequest(client:any,amount:number, message:str
     const instructionUUID = createId();
 
     const data = {
-        payeeAlias: '46705453110',
+        payeeAlias: '1231181189',
         payerAlias:"46704241020",
         currency: 'SEK',
-        callbackUrl: 'https://your-callback-url.com',
+        callbackUrl: 'https://vending.hawaiidev.net/callback',
         amount,
         message,
       };
   
     try {
-      const response = await client.put(
+      console.log(client);
+      console.log(data);
+      console.log(instructionUUID);
+
+      /*const response = await client.put(
         `https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/${instructionUUID}`,
         data
-      );
+      );*/
+
+      const response = await client.put(`
+      https://staging.getswish.pub.tds.tieto.com/cpc-swish/api/v1/paymentrequests/${instructionUUID}`,data);
   
       if (response.status === 201) {
         const { paymentrequesttoken } = response.headers;
+        console.log(response, response.headers);
+        console.log(await response.headers.json());
         return { id: instructionUUID, token: paymentrequesttoken };
       }
     } catch (error:any) {

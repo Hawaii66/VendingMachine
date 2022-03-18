@@ -1,5 +1,5 @@
 import {Express} from "express"
-import { createPaymentRequest, GetClient, newTest } from "../Utils/Swish";
+import { createId, createPaymentRequest, GetClient, newTest } from "../Utils/Swish";
 import { AdminRoutes } from "./AdminRoutes";
 import { MachineRoutes } from "./MachineRoutes";
 import { OrderRoutes } from "./OrderRoutes";
@@ -59,9 +59,16 @@ export const Routes = async (app:Express) => {
         return res.status(200).json({charge:chargeResult,order:order});
     });
 
-    /*var client = await GetClient();
-    //createPaymentRequest(client, 100, "Swish message")
-
+    var client = await GetClient();
+    const paymentRequest = await createPaymentRequest(client, 100, "Swish message")
+    if(paymentRequest === undefined){
+        console.log("ERROR 123");
+        process.exit();
+    }else{
+        console.log(paymentRequest)
+        
+    }
+/*
     const paymentRequest = await createPaymentRequest(client, 100, 'Test Payment');
     console.log(paymentRequest)
     /*if (paymentRequest === undefined){
