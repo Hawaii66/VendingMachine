@@ -1,7 +1,7 @@
 import {Express} from "express"
 import { createId, createPaymentRequest, GetClient, newTest } from "../Utils/Swish";
 import { AdminRoutes } from "./AdminRoutes";
-import { MachineRoutes } from "./MachineRoutes";
+import { MachineRoutes } from "./V2/MachineRoutes";
 import { OrderRoutes } from "./OrderRoutes";
 import { RaspRoutes } from "./RaspRoutes";
 require('dotenv').config()
@@ -59,7 +59,7 @@ export const Routes = async (app:Express) => {
         return res.status(200).json({charge:chargeResult,order:order});
     });
 
-    var client = await GetClient();
+    /*var client = await GetClient();
     const paymentRequest = await createPaymentRequest(client, 100, "Swish message")
     if(paymentRequest === undefined){
         console.log("ERROR 123");

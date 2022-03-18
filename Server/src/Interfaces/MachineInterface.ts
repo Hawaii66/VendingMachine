@@ -16,19 +16,20 @@ export interface ILocation
 
 export interface ISlot
 {
-    name:string,
-    info:string,
-    index:number,
+    id:string,
     x:number,
     y:number,
-    grid:{
-        x:number,
-        y:number
-    },
-    cost:number,
     amount:number,
-    thumbnail:IImage,
-    imgs:IImage[],
+    candy:string
+}
+
+export interface ICandy
+{
+    id:string,
+    name:string,
+    info:string,
+    price:number,
+    img:string
 }
 
 export interface IImage

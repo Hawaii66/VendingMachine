@@ -10,7 +10,7 @@ export const OrderRoutes = (app:Express) => {
         res.status(200).json(orders);
     });
 
-    app.get("/orders/:id",async(req,res)=>{
+    /*app.get("/orders/:id",async(req,res)=>{
         const id = req.params.id;
         if(id === null){res.status(400).send("No id available");}
 
@@ -32,7 +32,7 @@ export const OrderRoutes = (app:Express) => {
         }
 
         return res.status(200).json(data);
-    })
+    })*/
 
     app.post("/orders/create", async (req,res)=>{
         const order:IOrder = {
