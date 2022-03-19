@@ -15,6 +15,7 @@ export const MachineRoutes = (app:Express) => {
             if(candy === null){continue;}
 
             candy.price = parseFloat(candy.price.toPrecision(5));
+
             candys.push(candy);
         }
 

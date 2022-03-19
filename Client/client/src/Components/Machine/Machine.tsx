@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { IMachine } from '../../Interfaces/MachineInterface';
+import { ICandy, IMachine } from '../../Interfaces/MachineInterface';
 import Loading from '../Utils/Loading';
 import { useQuery } from '../Utils/UseQuery';
 import CandyCard from './CandyCard';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 function Machine() {
     const [machine,setMachine] = useState<IMachine|null>(null);
+    const [candy,setCandy] = useState<ICandy[]|null>(null);
     const [loading,setLoading] = useState(false);
 
     const query = useQuery();
@@ -17,12 +18,17 @@ function Machine() {
     const id = query.get("id");
 
     useEffect(()=>{
-        fetch(`${process.env.REACT_APP_SERVER_URL}/machines/get/${id}`,{
+        fetch(`${process.env.REACT_APP_SERVER_URL}/v2/machines/get/${id}`,{
             method:"GET"
-        }).then(res=>res.json().then(defMachine=>setMachine(defMachine)))
+        }).then(res=>res.json()
+        .then(data => {
+            console.log(data);
+            setMachine(data.machine);
+            setCandy(data.candys);
+        }))
     },[id])
 
-    if(machine === null ||loading){
+    if(machine === null || candy === null || loading){
         return(
             <Loading/>
         )
@@ -56,7 +62,7 @@ function Machine() {
                 <Col>
                     {machine.slots.map((slot,index)=>{
                         return(
-                            <CandyCard setLoading={setLoading} slot={slot} key={index}/>
+                            <CandyCard setLoading={setLoading} slot={slot} candys={candy} candyID={slot.candy} key={index}/>
                         )
                     })}
                 </Col>

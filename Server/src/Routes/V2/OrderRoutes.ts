@@ -26,7 +26,7 @@ export const OrderRoutes = (app:Express) => {
 
         const idempotencyKey = uuid();
 
-        /*const customer = await stripe.customers.create({
+        const customer = await stripe.customers.create({
             email:token.email,
             source:token.id
         });
@@ -37,9 +37,9 @@ export const OrderRoutes = (app:Express) => {
             customer:customer.id,
             receipt_email:token.email,
             description:candy.name
-        },{idempotencyKey});*/
+        },{idempotencyKey});
 
-        await ConsumeSlot(data.slotIndex);
+        await ConsumeSlot(data.slotID);
 
         const orderSettings:IOrder = {
             id:"",
@@ -51,7 +51,7 @@ export const OrderRoutes = (app:Express) => {
         }
 
         const order = await AddOrder(orderSettings);
-        console.log(order);
+
         await AddRaspOrder(order);
         
         return res.status(200).json({/*charge:chargeResult,*/order:order});

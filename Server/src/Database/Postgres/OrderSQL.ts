@@ -22,7 +22,16 @@ export const GetOrder:IGetOrder = async(id) => {
     const res = await client.query(sql,variables);
     client.release();
 
-    return res.rows[0];
+    const order:IOrder = {
+        id:res.rows[0].id,
+        candyID:res.rows[0].candy,
+        location:res.rows[0].location,
+        machineID:res.rows[0].machine,
+        purchaseDate:res.rows[0].purchasedate,
+        slotID:res.rows[0].slot
+    }
+
+    return order;
 }
 
 export const AddOrder:IAddOrder = async(order) => {

@@ -9,7 +9,7 @@ function Home() {
 
 	useEffect(()=>{
 		const GetLocations = async () => {
-			const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/machines/locations`,{
+			const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/v2/machines/locations`,{
 				method:"GET"
 			});
 			const locations = await result.json();
