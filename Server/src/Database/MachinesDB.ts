@@ -1,4 +1,4 @@
-import { ILocation, IMachine, ISlot } from "../Interfaces/MachineInterface";
+/*import { ILocation, IMachine, ISlot } from "../Interfaces/MachineInterface";
 import { machines } from "./DatabaseAPI";
 
 type GetAllType = () => Promise<IMachine[]>;
@@ -140,4 +140,4 @@ const GenerateMachineID = async () => {
     }
 
     return randomID
-}
+}*/

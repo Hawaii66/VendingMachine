@@ -1,4 +1,4 @@
-import {Express} from "express"
+/*import {Express} from "express"
 import { GetID } from "../Database/MachinesDB";
 import { AuthToken } from "../Utils/Middelware"
 
@@ -11,4 +11,4 @@ export const AdminRoutes = (app:Express) => {
         GetID("213");
         res.send("OK");
     });
-}
+}*/

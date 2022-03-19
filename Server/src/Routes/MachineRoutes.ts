@@ -1,4 +1,4 @@
-import {Express} from "express"
+/*import {Express} from "express"
 import { ChangeSlot, CreateMachine, FillSlot, GetAll, GetID, GetLocations, InsertSlot, RemoveSlot, SetMachine } from "../Database/MachinesDB";
 import { IMachine, ISlot } from "../Interfaces/MachineInterface"
 import { AuthToken } from "../Utils/Middelware";
@@ -41,7 +41,7 @@ export const MachineRoutes = (app:Express) => {
         res.status(200).json(machine);
     });
 
-    /*app.post("/machines/set", AuthToken, async (req,res)=>{
+    app.post("/machines/set", AuthToken, async (req,res)=>{
         const id = req.body.id;
         const index = req.body.index;
         const slot:ISlot = {
@@ -62,7 +62,7 @@ export const MachineRoutes = (app:Express) => {
 
         const machine = await ChangeSlot(id,index, slot);
         res.status(200).json(machine);
-    });*/
+    });
 
     app.post("/machines/fill", AuthToken, async (req,res)=>{
         const id = req.body.id;
@@ -96,4 +96,4 @@ export const MachineRoutes = (app:Express) => {
 
         res.status(200).json(locations);
     });
-}
+}*/

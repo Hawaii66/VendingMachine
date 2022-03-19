@@ -1,16 +1,11 @@
 import {Express} from "express"
 import { createId, createPaymentRequest, GetClient, newTest } from "../Utils/Swish";
-import { AdminRoutes } from "./AdminRoutes";
 import { MachineRoutes } from "./V2/MachineRoutes";
 import { OrderRoutes } from "./V2/OrderRoutes";
 import { RaspRoutes } from "./V2/RaspRoutes";
 require('dotenv').config()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 import {uuid} from "uuidv4";
-import { CanConsume, GetLocation } from "../Database/MachinesDB";
-import { ConsumeSlot } from "../Database/MachinesDB";
-import { IOrder } from "../Interfaces/Order";
-import { AddOrder } from "../Database/OrderDB";
 
 
 export const Routes = async (app:Express) => {
@@ -81,7 +76,6 @@ export const Routes = async (app:Express) => {
     // Open or redirect the user to the url
     console.log(appUrl);*/
 
-    AdminRoutes(app);
     MachineRoutes(app);
     OrderRoutes(app);
     RaspRoutes(app);

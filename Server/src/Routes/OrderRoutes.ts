@@ -1,4 +1,4 @@
-import {Express} from "express"
+/*import {Express} from "express"
 import { IOrder, IOrderPublic } from "../Interfaces/Order";
 import { AddOrder, GetAllOrders, GetFullOrder, GetOrder } from "../Database/OrderDB";
 import { AuthToken } from "../Utils/Middelware"
@@ -10,7 +10,7 @@ export const OrderRoutes = (app:Express) => {
         res.status(200).json(orders);
     });
 
-    /*app.get("/orders/:id",async(req,res)=>{
+    app.get("/orders/:id",async(req,res)=>{
         const id = req.params.id;
         if(id === null){res.status(400).send("No id available");}
 
@@ -48,5 +48,5 @@ export const OrderRoutes = (app:Express) => {
 
         const newOrder = await AddOrder(order);
         res.status(201).json(newOrder);
-    });*/
-}
+    });
+}*/

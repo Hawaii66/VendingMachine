@@ -1,4 +1,4 @@
-import { IOrder, IRaspberryOrder } from "../Interfaces/Order"
+/*import { IOrder, IRaspberryOrder } from "../Interfaces/Order"
 import { raspOrders, doneOrders } from "./DatabaseAPI"
 
 type GetAllOrdersType = () => Promise<IRaspberryOrder[]>
@@ -72,4 +72,4 @@ const GetRandomOrderID = async (str:string) => {
     }
 
     return randomID
-}
+}*/
