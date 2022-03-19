@@ -20,7 +20,7 @@ function CandyCard({slot,candyID,candys,setLoading}:Props) {
                 break;
             }
         }
-    });
+    },[candys, candyID]);
 
     if(candy === null){
         return <p>Error</p>
