@@ -2,8 +2,8 @@ import {Express} from "express"
 import { createId, createPaymentRequest, GetClient, newTest } from "../Utils/Swish";
 import { AdminRoutes } from "./AdminRoutes";
 import { MachineRoutes } from "./V2/MachineRoutes";
-import { OrderRoutes } from "./OrderRoutes";
-import { RaspRoutes } from "./RaspRoutes";
+import { OrderRoutes } from "./V2/OrderRoutes";
+import { RaspRoutes } from "./V2/RaspRoutes";
 require('dotenv').config()
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 import {uuid} from "uuidv4";
@@ -18,7 +18,7 @@ export const Routes = async (app:Express) => {
         res.status(200).send("Hello World")
     });
 
-    app.post("/payment",async (req,res)=>{
+    /*app.post("/payment",async (req,res)=>{
         const {product, token, data} = req.body;
 
         const canConsume = await CanConsume(data.machineID,data.slotIndex);
@@ -59,7 +59,7 @@ export const Routes = async (app:Express) => {
         return res.status(200).json({charge:chargeResult,order:order});
     });
 
-    /*var client = await GetClient();
+    var client = await GetClient();
     const paymentRequest = await createPaymentRequest(client, 100, "Swish message")
     if(paymentRequest === undefined){
         console.log("ERROR 123");

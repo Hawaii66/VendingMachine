@@ -7,6 +7,9 @@ type IGetSlot = (id:string) => Promise<ISlot|null>;
 type IGetCandy = (id:string) => Promise<ICandy|null>;
 type IGetLocation = (id:string) => Promise<ILocation|null>;
 type IGetMachineLocations = () => Promise<ILocation[]|null>;
+type ICandyFromSlot = (slotID:string) => Promise<ICandy|null>;
+type ICanConsume = (machineID:string,candyID:string) => Promise<boolean>;
+type IConsumeSlot = (candyID:string) => Promise<void>;
 
 const pool = new Pool({
     connectionString:process.env.POSTGRESSSQL_KEY
@@ -99,4 +102,38 @@ export const GetMachine:IGetMachine = async(id) => {
     }
 
     return machine;
+}
+
+export const CanConsume:ICanConsume = async(machineID,candyID) => {
+    const sql = `
+        SELECT s.amount FROM machines m JOIN slots s ON s.id=$2 WHERE m.id=$1 
+    `
+    const variables = [machineID, candyID];
+    const client = await pool.connect();
+    const res = await client.query(sql,variables);
+    client.release();
+
+    return res.rows[0].amount > 0;
+}
+
+export const ConsumeSlot:IConsumeSlot = async(candyID) => {
+    const sql = `
+        UPDATE slots SET amount=amount-1 WHERE id=$1
+    `
+    const variables = [candyID];
+    const client = await pool.connect();
+    await client.query(sql,variables);
+    client.release();
+}
+
+export const GetCandyFromSlot:ICandyFromSlot = async(slotID) => {
+    const sql = `
+        SELECT c.* FROM slots s JOIN candys c ON s.candy=c.id WHERE s.id=$1
+    `;
+    const variables = [slotID];
+    const client = await pool.connect();
+    const res = await client.query(sql,variables);
+    client.release();
+
+    return res.rows[0];
 }

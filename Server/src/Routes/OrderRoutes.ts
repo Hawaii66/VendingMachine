@@ -32,7 +32,7 @@ export const OrderRoutes = (app:Express) => {
         }
 
         return res.status(200).json(data);
-    })*/
+    })
 
     app.post("/orders/create", async (req,res)=>{
         const order:IOrder = {
@@ -48,5 +48,5 @@ export const OrderRoutes = (app:Express) => {
 
         const newOrder = await AddOrder(order);
         res.status(201).json(newOrder);
-    });
+    });*/
 }

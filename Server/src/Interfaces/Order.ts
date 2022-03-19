@@ -3,22 +3,18 @@ import { IImage, ILocation } from "./MachineInterface";
 export interface IRaspberryOrder
 {
     id:string,
-    name:string,
     machineID:string,
-    slotIndex:number,
-    orderID:string
+    slotID:string
 }
 
 export interface IOrder
 {
     id:string,
-    name:string,
-    cost:number,
-    createDate:number,
-    insertDate:number,
+    location:string,
     machineID:string,
-    slotIndex:number,
-    location:ILocation
+    slotID:string,
+    candyID:string,
+    purchaseDate:number
 }
 
 export interface IOrderPublic

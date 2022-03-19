@@ -4,7 +4,7 @@ import { GetOrdersMachine, RemoveOrder } from "../Database/OrderDB";
 import { GetID } from "../Database/MachinesDB";
 
 export const RaspRoutes = (app:Express) => {
-    app.get("/rasp/orders/:id", AuthRasp, async (req,res)=>{
+    /*app.get("/rasp/orders/:id", AuthRasp, async (req,res)=>{
         const machineID = req.params.id;
         
         const orders = await GetOrdersMachine(machineID);
@@ -36,5 +36,5 @@ export const RaspRoutes = (app:Express) => {
                 slot:slot
             }
         );
-    });
+    });*/
 }
